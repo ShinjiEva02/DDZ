@@ -1,20 +1,19 @@
 [
     {
-        "name": "xxx",
-        "gps": ["xxxx", "xxxxx"],
-        "url": "/image/photo"
+        "name": "Ожешко 22",
+        "gps": [53.684753, 23.839592],
+        "url": "img/3.png"
+    },
+    
+    {
+        "name": "Н.Орды 8",
+        "gps": [53.622646, 23.810415],
+        "url": "img/1.png"
     },
 
     {
-        "name": "xxx",
-        "gps": ["xxxx", "xxxxx"],
-        "url": "/image/photo"
-    },
-
-    {
-        "name": "xxx",
-        "gps": ["xxxx", "xxxxx"],
-        "url": "/image/photo"
-    }
-
+        "name": "Космонавтов 50",
+        "gps": [53.674973, 23.860164],
+        "url": "img/2.png"
+    }   
 ]

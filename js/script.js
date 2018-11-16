@@ -1,6 +1,7 @@
-let data;
+
 window.addEventListener('DOMContentLoaded', () => {
-    let request = new XMLHttpRequest();
+    let data,
+        request = new XMLHttpRequest();
     
     request.open('GET', 'js/getClass.json');
     request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
@@ -20,24 +21,41 @@ window.addEventListener('DOMContentLoaded', () => {
                     'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
                 id: 'mapbox.streets'
             }).addTo(mymap);
-    
-            for(let i = 0; i < data.length; i++) {
-                L.marker(data[i].gps).addTo(mymap)
-                    .bindPopup(`<b>${data[i].name}</b><br /> <img src="${data[i].url}" alt="${data[i].name}">`).openPopup();    
+
+            var markers = new L.markerClusterGroup();
+		    var markersList = [];
+            
+            function populate() {
+                for (var i = 0; i < data.length; i++) {
+                    var m = new L.marker(data[i].gps)
+                    .bindPopup(`<b>${data[i].name}</b><br /> <img src="${data[i].url}" alt="${data[i].name}">`).openPopup();
+                    markersList.push(m);
+                    markers.addLayer(m);
+                }
+                return false;
             }
             
-            var popup = L.popup()
-                .setLatLng([53.682374, 23.835182])
-                .setContent("I am Hrodno.")
-                .openOn(mymap);
-            function onMapClick(e) {
-                popup
-                    .setLatLng(e.latlng)
-                    .setContent("You clicked the map at " + e.latlng.toString())
-                    .openOn(mymap);
-            }
+            populate();
+            mymap.addLayer(markers);
+
+            // for(let i = 0; i < data.length; i++) {
+            //     L.marker(data[i].gps).addTo(mymap)
+            //         .bindPopup(`<b>${data[i].name}</b><br /> <img src="${data[i].url}" alt="${data[i].name}">`).openPopup();    
+            // }
+            
+            // var popup = L.popup()
+            //     .setLatLng([53.682374, 23.835182])
+            //     .setContent("I am Hrodno.")
+            //     .openOn(mymap);
+
+            // function onMapClick(e) {
+            //     popup
+            //         .setLatLng(e.latlng)
+            //         .setContent("You clicked the map at " + e.latlng.toString())
+            //         .openOn(mymap);
+            // }
     
-            mymap.on('click', onMapClick);
+            // mymap.on('click', onMapClick);
         }
     });
 

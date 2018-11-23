@@ -21,14 +21,31 @@ window.addEventListener('DOMContentLoaded', () => {
                     'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
                 id: 'mapbox.streets'
             }).addTo(mymap);
+            
+            //Map with more details and long load
+            // L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+			// 	maxZoom: 18,
+			// 	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Points &copy 2012 LINZ'
+            // }).addTo(mymap);
 
             var markers = new L.markerClusterGroup();
 		    var markersList = [];
+            var customIcon = L.Icon.extend({
+                options: {
+                    shadowUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-grey.png'
+                }
+            });
+                
+            // Function for getting new default icon
+            function getDefaultIcon(props) {
+                return new customIcon({
+                    iconUrl: props
+                });
+            }
             
             function populate() {
                 for (var i = 0; i < data.length; i++) {
-                    var m = new L.marker(data[i].gps)
-                    .bindPopup(`<b>${data[i].name}</b><br /> <img src="${data[i].url}" alt="${data[i].name}">`).openPopup();
+                    var m = L.marker(new L.LatLng(data[i].gps[0], data[i].gps[1]), { icon: getDefaultIcon(data[i].url) } )
                     markersList.push(m);
                     markers.addLayer(m);
                 }
@@ -68,3 +85,45 @@ window.addEventListener('DOMContentLoaded', () => {
     // }
 
 });
+
+// var tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+//     maxZoom: 18,
+//     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Points &copy 2012 LINZ'
+// }),
+// latlng = L.latLng(-37.82, 175.24);
+
+// var map = L.map('mapid', {center: latlng, zoom: 13, layers: [tiles]});
+
+// var markers = L.markerClusterGroup();
+// // Custom icon class without iconUrl
+// var customIcon = L.Icon.extend({
+// options: {
+//     shadowUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-grey.png'
+// }
+// });
+
+
+// // Function for getting new default icon
+// function getDefaultIcon() {
+// return new customIcon({
+//     iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png'
+// });
+// }
+
+
+
+// for (var i = 0; i < addressPoints.length; i++) {
+// var a = addressPoints[i];
+// var title = a[2];
+// var marker = L.marker(new L.LatLng(a[0], a[1]), { title: title , icon: getDefaultIcon() } );
+// marker.bindPopup(title);
+
+
+// markers.addLayer(marker);
+
+
+// }
+
+// map.addLayer(markers);
+
+

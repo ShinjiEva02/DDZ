@@ -1,8 +1,9 @@
 # DDZ
 
-# Ajax request method GET
+# Ajax Request method GET
 
-# Add map 
+# Add Map 
 
 # Add Marker Clasters
 
+# Add Icons Сustomization 
